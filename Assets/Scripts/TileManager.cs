@@ -3,10 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileManager : MonoBehaviour
+public class TileManager : Singleton<TileManager>
 {
     [SerializeField]
     private GameObject[] tiles;
+
+    [SerializeField]
+    private Transform map;
 
     //variables for setting up the creature startpoint
     private Point startSpawn;
@@ -70,6 +73,7 @@ public class TileManager : MonoBehaviour
 
         maxTile = TileDict[new Point(mapXSize - 1, mapYSize - 2)].transform.position;
 
+        //place the start and end points
         SpawnStartEnd();
 
     }//end CreateLevel
@@ -83,10 +87,10 @@ public class TileManager : MonoBehaviour
         //create a new TileScript and set up the grid position
         TileScript newTile = Instantiate(tiles[tileIndex]).GetComponent<TileScript>();
         newTile.Setup(new Point(x, y), new Vector3(startPosition.x + 
-            (TileSize * x), startPosition.y - (TileSize * y), 0) );
+            (TileSize * x), startPosition.y - (TileSize * y), 0), map);
 
-        //add the new tile to the dictionary
-        TileDict.Add(new Point(x, y), newTile);
+        //add the new tile to the dictionary - moved to TileScript
+        //TileDict.Add(new Point(x, y), newTile);
     }//end PlaceTile
 
     //read the level design in from a text file
@@ -105,7 +109,7 @@ public class TileManager : MonoBehaviour
 
     private void SpawnStartEnd()
     {
-        startSpawn = new Point(0, 0);
+        startSpawn = new Point(0, 1);
         Instantiate(startSpawnPrefab, TileDict[startSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
 
         endSpawn = new Point(12, 9);
