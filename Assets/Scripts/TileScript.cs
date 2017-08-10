@@ -8,6 +8,20 @@ public class TileScript : MonoBehaviour {
     public Point GridPosition { get; private set; }
 
     private SpriteRenderer spriteRenderer;
+    public SpriteRenderer SpriteRenderer
+    {
+        get
+        {
+            return spriteRenderer;
+        }
+
+        set
+        {
+            spriteRenderer = value;
+        }
+    }
+
+    public bool Debugging { get; set; }
 
     //determines if tile is occupied - used for pathfinding and tower placement
     public bool IsEmpty { get; set; }
@@ -31,10 +45,10 @@ public class TileScript : MonoBehaviour {
         }
 
     }
-                                       
+
     // Use this for initialization
     void Start () {
-        spriteRenderer = GetComponent<SpriteRenderer>();	
+        SpriteRenderer = GetComponent<SpriteRenderer>();	
 	}
 	
 	// Update is called once per frame
@@ -59,11 +73,11 @@ public class TileScript : MonoBehaviour {
             GameManager.Instance.ClickedButton != null)
         {
             //highlight tiles if empty
-            if (IsEmpty)
+            if (IsEmpty && !Debugging)
                 ColorTile(emptyColor);
 
             //if not empty highlight in red, if empty can place tower
-            if (!IsEmpty)
+            if (!IsEmpty && !Debugging)
                 ColorTile(fullColor);
             else if (Input.GetMouseButtonDown(0))
                 PlaceTower();
@@ -72,7 +86,8 @@ public class TileScript : MonoBehaviour {
 
     private void OnMouseExit()
     {
-        ColorTile(Color.white);
+        if(!Debugging)
+            ColorTile(Color.white);
     }
 
     private void PlaceTower()
@@ -95,6 +110,6 @@ public class TileScript : MonoBehaviour {
 
     private void ColorTile(Color newColor)
     {
-        spriteRenderer.color = newColor;
+        SpriteRenderer.color = newColor;
     }
 }

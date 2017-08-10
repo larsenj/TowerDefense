@@ -80,6 +80,9 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Hover.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\Debugging.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
+    <Compile Include="Assets\Scripts\Pathfinding\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\Point.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\TileManager.cs" />
