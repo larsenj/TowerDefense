@@ -20,11 +20,14 @@ public class TileScript : MonoBehaviour {
             spriteRenderer = value;
         }
     }
-
+    
     public bool Debugging { get; set; }
 
     //determines if tile is occupied - used for pathfinding and tower placement
     public bool IsEmpty { get; set; }
+
+    //determines if tile is walkable by creatures
+    public bool IsWalkable { get; set; }
 
     //red color for when can't place a tower
     private Color32 fullColor = new Color32(255, 118, 118, 255);
@@ -48,7 +51,7 @@ public class TileScript : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        SpriteRenderer = GetComponent<SpriteRenderer>();	
+        spriteRenderer = GetComponent<SpriteRenderer>();	
 	}
 	
 	// Update is called once per frame
@@ -64,6 +67,7 @@ public class TileScript : MonoBehaviour {
         transform.SetParent(parent);    //to make the GameObject hierarchy cleaner
         TileManager.Instance.TileDict.Add(GridPos, this);
         IsEmpty = true;
+        IsWalkable = true;
     }
 
     public void OnMouseOver()
@@ -106,10 +110,11 @@ public class TileScript : MonoBehaviour {
 
         ColorTile(Color.white);
         IsEmpty = false;
+        IsWalkable = false;
     }
 
     private void ColorTile(Color newColor)
     {
-        SpriteRenderer.color = newColor;
+        spriteRenderer.color = newColor;
     }
 }

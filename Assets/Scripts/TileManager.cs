@@ -21,6 +21,9 @@ public class TileManager : Singleton<TileManager>
     [SerializeField]
     private GameObject endSpawnPrefab;
 
+    //for determining if a point is outside the bounds of the map
+    //private Point mapSize;
+    
     //dictionary to hold all the tiles
     public Dictionary<Point, TileScript> TileDict { get; set; }
 
@@ -75,6 +78,9 @@ public class TileManager : Singleton<TileManager>
 
         //place the start and end points
         SpawnStartEnd();
+
+        //max x and y values of the map
+        //mapSize = new Point(mapData[0].ToCharArray().Length, mapData.Length);
 
     }//end CreateLevel
 

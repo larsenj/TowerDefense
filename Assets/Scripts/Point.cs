@@ -15,4 +15,14 @@ public struct Point
         this.X = x;
         this.Y = y;
     }
+
+    //for comparing points
+    public static bool operator ==(Point first, Point second)
+    {
+        return first.X == second.X && first.Y == second.Y;
+    }
+    public static bool operator !=(Point first, Point second)
+    {
+        return first.X != second.X || first.Y != second.Y;
+    }
 }
