@@ -90,7 +90,7 @@ MonoBehaviour:
   m_MinSize: {x: 713, y: 492}
   m_MaxSize: {x: 18008, y: 14042}
   vertical: 0
-  controlID: 44
+  controlID: 110
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -155,12 +155,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 732
     y: 0
-    width: 271
+    width: 265
     height: 597
   m_MinSize: {x: 234, y: 492}
   m_MaxSize: {x: 10004, y: 14042}
   vertical: 1
-  controlID: 10
+  controlID: 42
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -175,9 +175,9 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1003
+    x: 997
     y: 0
-    width: 277
+    width: 283
     height: 597
   m_MinSize: {x: 277, y: 71}
   m_MaxSize: {x: 4002, y: 4021}
@@ -202,7 +202,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 271
+    width: 265
     height: 263
   m_MinSize: {x: 204, y: 221}
   m_MaxSize: {x: 4004, y: 4021}
@@ -227,7 +227,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 263
-    width: 271
+    width: 265
     height: 334
   m_MinSize: {x: 234, y: 271}
   m_MaxSize: {x: 10004, y: 10021}
@@ -258,11 +258,11 @@ MonoBehaviour:
   m_DepthBufferBits: 0
   m_Pos:
     serializedVersion: 2
-    x: 1005
+    x: 999
     y: 92
-    width: 275
+    width: 281
     height: 576
-  m_ScrollPosition: {x: 0, y: 0}
+  m_ScrollPosition: {x: 0, y: 288.95508}
   m_InspectorMode: 0
   m_PreviewResizer:
     m_CachedPref: -160
@@ -293,7 +293,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 734
     y: 355
-    width: 267
+    width: 261
     height: 313
   m_SearchFilter:
     m_NameFilter: 
@@ -306,19 +306,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 0
     m_Folders:
-    - Assets/Prefabs/Debugging
+    - Assets/Scripts
   m_ViewMode: 1
-  m_StartGridSize: 64
+  m_StartGridSize: 72
   m_LastFolders:
-  - Assets/Prefabs/Debugging
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\J\Desktop\Classes\OSU 467 Capstone\Tower Defense
   m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 92}
-    m_SelectedIDs: e8240000
-    m_LastClickedID: 9448
-    m_ExpandedIDs: 00000000c02400000c250000422500006025000000ca9a3bffffff7f
+    scrollPos: {x: 0, y: 44}
+    m_SelectedIDs: bc250000
+    m_LastClickedID: 9660
+    m_ExpandedIDs: 00000000c624000060250000bc25000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -346,7 +346,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000c02400000c2500004225000060250000
+    m_ExpandedIDs: 00000000c624000060250000bc250000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -373,8 +373,8 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
-    m_ExpandedInstanceIDs: c62300007c3a00000000000012290000942500003c26000068250000cc26000078250000
+    m_HadKeyboardFocusLastEvent: 1
+    m_ExpandedInstanceIDs: c62300007c3a00000000000012290000942500003c26000068250000cc260000782500000a250000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -398,9 +398,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
-    m_ScrollPosition: {x: 0, y: 0}
-    m_GridSize: 64
-  m_DirectoriesAreaWidth: 147
+    m_ScrollPosition: {x: 0, y: 497}
+    m_GridSize: 72
+  m_DirectoriesAreaWidth: 139
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -504,14 +504,14 @@ MonoBehaviour:
     width: 730
     height: 576
   m_SceneLighting: 1
-  lastFramingTime: 113495.17242685206
+  lastFramingTime: 1580.6282779331482
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 110.86536, y: 49.0342, z: 0}
+    m_Target: {x: 366.05734, y: 279.50555, z: 0}
     speed: 2
-    m_Value: {x: 110.86536, y: 49.0342, z: 0}
+    m_Value: {x: 366.05734, y: 279.50555, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -538,9 +538,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 1.8688895
+    m_Target: 494.26907
     speed: 2
-    m_Value: 1.8688895
+    m_Value: 494.26907
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -575,27 +575,27 @@ MonoBehaviour:
     serializedVersion: 2
     x: 734
     y: 92
-    width: 267
+    width: 261
     height: 242
   m_TreeViewState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: e4fbffff00000000
+    scrollPos: {x: 0, y: 79}
+    m_SelectedIDs: b67cfeff
+    m_LastClickedID: -99146
+    m_ExpandedIDs: bc7cfeffe2d6feffecdffeffe4fbffff000000008c260000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: GameObject
+      m_OriginalName: GameObject
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -73748
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 

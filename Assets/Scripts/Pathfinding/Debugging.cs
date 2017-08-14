@@ -19,13 +19,15 @@ public class Debugging : MonoBehaviour {
 		
 	}
 	
+
+    /*
 	// Update is called once per frame
 	void Update ()
     {
         ClickTile();
 
         if (Input.GetKeyDown(KeyCode.Space))
-            Pathfinding.GetPath(start.GridPosition);
+            Pathfinding.GetPath(start.GridPosition, goal.GridPosition);
 	}
 
     private void ClickTile()
@@ -63,11 +65,14 @@ public class Debugging : MonoBehaviour {
 
     }//end clickTile
 
-    public void DebugPath(HashSet<Node> openList, HashSet<Node> closedList)
+    */
+
+    public void DebugPath(HashSet<Node> openList, HashSet<Node> closedList, 
+        Stack<Node> path)
     {
         foreach (Node node in openList)
         {
-            if (node.TileRef != start)
+            if (node.TileRef != start && node.TileRef != goal)
                 node.TileRef.SpriteRenderer.color = Color.cyan;
 
             PointToParent(node, node.TileRef.WorldPosition);
@@ -75,10 +80,20 @@ public class Debugging : MonoBehaviour {
 
         foreach (Node node in closedList)
         {
-            if (node.TileRef != start && node.TileRef != goal)
+            if (node.TileRef != start && node.TileRef != goal && !path.Contains(node))
                 node.TileRef.SpriteRenderer.color = Color.blue;
 
-            //PointToParent(node, node.TileRef.WorldPosition);
+            PointToParent(node, node.TileRef.WorldPosition);
+        }
+
+        foreach(Node node in path)
+        {
+            if(node.TileRef != start && node.TileRef != goal && !path.Contains(node))
+            {
+                node.TileRef.SpriteRenderer.color = Color.cyan;
+
+            }
+
         }
     }//end DebugPath
 

@@ -78,15 +78,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Creatures\Mobs.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\Hover.cs" />
+    <Compile Include="Assets\Scripts\Objectpool.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Debugging.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
     <Compile Include="Assets\Scripts\Pathfinding\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\Point.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
-    <Compile Include="Assets\Scripts\TileManager.cs" />
-    <Compile Include="Assets\Scripts\TileScript.cs" />
+    <Compile Include="Assets\Scripts\SpawnPoint.cs" />
+    <Compile Include="Assets\Scripts\TileMap\TileManager.cs" />
+    <Compile Include="Assets\Scripts\TileMap\TileScript.cs" />
     <Compile Include="Assets\Scripts\TowerButton.cs" />
   </ItemGroup>
   <ItemGroup>

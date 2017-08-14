@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 /* Static class used for pathfinding
@@ -37,7 +38,7 @@ public static class Pathfinding
     }
 
     //generates the path
-    public static void GetPath(Point start)
+    public static Stack<Node> GetPath(Point start, Point end)
     {
         //creates nodes if needed
         if (nodes == null)
@@ -50,56 +51,126 @@ public static class Pathfinding
         //CLOSED list
         HashSet<Node> closedList = new HashSet<Node>();
 
+        //stack used to track the path to the end
+        Stack<Node> pathStack = new Stack<Node>();
+
         //create reference to starting node
         Node curr = nodes[start];
 
         //1. Add start node to OPEN list
         openList.Add(curr);
 
-        //2. Look at neighbors, ignore unwalkable
-        for(int x = -1; x <= 1; x++)
+    
+        //10. Repeat from step 7
+        //repeat as long as items remain in the OPEN list
+        while (openList.Count > 0)
         {
-            for(int y = -1; y <= 1; y++)
+            //2. Look at neighbors, ignore unwalkable
+            for (int x = -1; x <= 1; x++)
             {
-
-                Point neighPos = new Point(curr.GridPosition.X - x, curr.GridPosition.Y - y);
-
-                if (TileManager.Instance.TileDict.ContainsKey(neighPos))
+                for (int y = -1; y <= 1; y++)
                 {
-                    //6. Score nodes => F(x) = G(x) * H(x)
-                    int gCost = 0;
-                    if (Math.Abs(x - y) == 1) //horizontal or vertical
-                        gCost = 10;
-                    else //diagonal
-                        gCost = 14;
 
-                    if (TileManager.Instance.TileDict[neighPos].IsWalkable &&
-                        neighPos != curr.GridPosition)
+                    Point neighPos = new Point(curr.GridPosition.X - x, curr.GridPosition.Y - y);
+
+                    if (TileManager.Instance.TileDict.ContainsKey(neighPos))
                     {
-                        //3.Add neighbors to OPEN
-                        Node neighbor = nodes[neighPos];
-                        if(!openList.Contains(neighbor))
+                        //6. Score nodes => F(x) = G(x) * H(x)
+                        int gCost = 0;
+                        if (Math.Abs(x - y) == 1) //horizontal or vertical
+                            gCost = 10;
+                        else //diagonal
                         {
-                            openList.Add(neighbor);
+                            //if the diagonal is blocked, skip this iteration
+                            //of the whole loop
+                            if (!ConnectedDiag(curr, nodes[neighPos]))
+                                continue;
+                            gCost = 14;
+
                         }
-                        //FOR DEBUGGING ONLY:
-                        //neighbor.TileRef.SpriteRenderer.color = Color.black;
+                        //9. ...ignore unwalkable...
+                        if (TileManager.Instance.TileDict[neighPos].IsWalkable &&
+                            neighPos != curr.GridPosition)
+                        {
+                            //3.Add neighbors to OPEN
+                            Node neighbor = nodes[neighPos];
 
-                        //4. Set current node (cur) as parent
-                        neighbor.CalcValues(curr, gCost);
-                    }
-                }//end if neighbor in tile dictionary
-            }//end for y
-        }//end for x
 
-        //5. Move cur from OPEN to CLOSED list
-        openList.Remove(curr);
-        closedList.Add(curr);
+                            //9. ...Check if nodes already in OPEN... 
+                            if (openList.Contains(neighbor))
+                            {
+                                //check if current node is a better parent (lower score)
+                                if (curr.G + gCost < neighbor.G)
+                                    neighbor.CalcValues(curr, nodes[end], gCost);
+
+                            }
+                            //9. ...ignore CLOSED...
+                            else if (!closedList.Contains(neighbor))
+                            {
+                                openList.Add(neighbor);
+                                neighbor.CalcValues(curr, nodes[end], gCost);//also sets curr as parent
+                            }
+                        }
+                    }//end if neighbor in tile dictionary
+                }//end for y
+            }//end for x
+
+            //5. Move cur from OPEN to CLOSED list
+            //8. Move smallest from OPEN to CLOSED
+            openList.Remove(curr);
+            closedList.Add(curr);
+
+            //7. Select node w/ smallest score from OPEN
+            if (openList.Count > 0)
+            {
+                //lambda expression - look at every node, n, using n.F order them,
+                //select first on the list (lowest value)
+                curr = openList.OrderBy(n => n.F).First();
+            }
+
+            //10. quit if goal is found
+            if (curr == nodes[end])
+            {
+                //push all the nodes into the stack, backtracking to the starting one
+                while (curr.GridPosition != start)
+                {
+                    pathStack.Push(curr);
+                    curr = curr.Parent;
+                }
+                break;
+            }
+
+
+        }//end while
+
+        return pathStack;
 
         //FOR DEBUGGING ONLY:
-        GameObject.Find("Debugging").GetComponent<Debugging>().DebugPath(openList, closedList);
-    }
+        //GameObject.Find("Debugging").GetComponent<Debugging>().DebugPath(openList, closedList, pathStack);
+    }//end GetPath
 
-}
+    private static bool ConnectedDiag(Node curr, Node neighbor)
+    {
+        Point direction = neighbor.GridPosition - curr.GridPosition;
 
+        //first point to check for occupancy
+        Point first = new Point(curr.GridPosition.X + direction.X, 
+            curr.GridPosition.Y);
+        //second point to check for occupancy
+        Point second = new Point(curr.GridPosition.X, curr.GridPosition.Y 
+            + direction.Y);
+
+        //if within bounds but not walkable, return false
+        if(TileManager.Instance.TileDict.ContainsKey(first) && 
+            !TileManager.Instance.TileDict[first].IsWalkable)
+            return false;
+        if (TileManager.Instance.TileDict.ContainsKey(second) &&
+            !TileManager.Instance.TileDict[second].IsWalkable)
+            return false;
+
+        return true;
+
+    }//end ConnectedDiag
+
+}//end class
 

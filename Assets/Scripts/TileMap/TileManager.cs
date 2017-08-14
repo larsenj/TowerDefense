@@ -13,8 +13,11 @@ public class TileManager : Singleton<TileManager>
 
     //variables for setting up the creature startpoint
     private Point startSpawn;
+    public Point StartSpawn { get { return startSpawn; } }
     [SerializeField]
     private GameObject startSpawnPrefab;
+
+    public SpawnPoint StartPoint { get; set; }
 
     //variables for setting up the creature endpoints
     private Point endSpawn;
@@ -23,7 +26,23 @@ public class TileManager : Singleton<TileManager>
 
     //for determining if a point is outside the bounds of the map
     //private Point mapSize;
-    
+
+    private Stack<Node> path;
+
+    public Stack<Node> Path
+    {
+        get
+        {
+            if (path == null)
+                GeneratePath();
+
+            //ensures each mob has its own stack
+            //TODO: this is silly, just convert it to an array
+            return new Stack<Node>(new Stack<Node>(path));
+        }
+    }
+
+
     //dictionary to hold all the tiles
     public Dictionary<Point, TileScript> TileDict { get; set; }
 
@@ -116,10 +135,22 @@ public class TileManager : Singleton<TileManager>
     private void SpawnStartEnd()
     {
         startSpawn = new Point(0, 1);
-        Instantiate(startSpawnPrefab, TileDict[startSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        GameObject temp = (GameObject)Instantiate(startSpawnPrefab, 
+            TileDict[startSpawn].GetComponent<TileScript>().WorldPosition, 
+            Quaternion.identity);
+        StartPoint = temp.GetComponent<SpawnPoint>();
+        StartPoint.name = "Start";
 
-        endSpawn = new Point(12, 9);
-        Instantiate(endSpawnPrefab, TileDict[endSpawn].GetComponent<TileScript>().WorldPosition, Quaternion.identity);
+        //endSpawn = new Point(12, 9);
+        endSpawn = new Point(3, 6);
+        Instantiate(endSpawnPrefab, TileDict[endSpawn].GetComponent<TileScript>().WorldPosition, 
+            Quaternion.identity);
 
-    }
+    }//end SpawnstartEnd
+
+    public void GeneratePath()
+    {
+        //create the path stack
+        path = Pathfinding.GetPath(startSpawn, endSpawn);
+    }//end GeneratePath
 }//end class

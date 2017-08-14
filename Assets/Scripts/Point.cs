@@ -16,6 +16,16 @@ public struct Point
         this.Y = y;
     }
 
+    //for adding and subtracting points
+    public static Point operator -(Point first, Point second)
+    {
+        return new Point(first.X - second.X, first.Y - second.Y);
+    }
+    public static Point operator +(Point first, Point second)
+    {
+        return new Point(first.X + second.X, first.Y + second.Y);
+    }
+    
     //for comparing points
     public static bool operator ==(Point first, Point second)
     {

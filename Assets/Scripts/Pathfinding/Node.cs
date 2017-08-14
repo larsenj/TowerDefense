@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,20 +14,31 @@ public class Node
     //track the parent node
     public Node Parent { get; set; }
 
-    //track g-cost
+    //track path costs - F(x) = G(x) + H(x)
     public int G { get; set; }
+    public int H { get; set; }
+    public int F { get; set; }
+
+    public Vector2 WorldPosition { get; set; }
 
     public Node(TileScript tileRef)
     {
         //set the tile that the node references, and its grid position
         this.TileRef = tileRef;
         this.GridPosition = tileRef.GridPosition;
+        this.WorldPosition = tileRef.WorldPosition;
     }
 
-    public void CalcValues(Node parent, int gCost)
+    //get the H, G and F values
+    public void CalcValues(Node parent, Node end, int gCost)
     {
         this.Parent = parent;
         this.G = gCost + parent.G;
+        int HX = Math.Abs(GridPosition.X - end.GridPosition.X);
+        int HY = Math.Abs(GridPosition.Y - end.GridPosition.Y);
+        this.H = 10 * (HX + HY);
+
+        this.F = G + H;
     }
 
 }//end class
