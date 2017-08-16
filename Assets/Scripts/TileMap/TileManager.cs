@@ -141,8 +141,8 @@ public class TileManager : Singleton<TileManager>
         StartPoint = temp.GetComponent<SpawnPoint>();
         StartPoint.name = "Start";
 
-        //endSpawn = new Point(12, 9);
-        endSpawn = new Point(3, 6);
+        endSpawn = new Point(12, 9);
+        //endSpawn = new Point(3, 6);   //closer endpoint for faster debugging
         Instantiate(endSpawnPrefab, TileDict[endSpawn].GetComponent<TileScript>().WorldPosition, 
             Quaternion.identity);
 

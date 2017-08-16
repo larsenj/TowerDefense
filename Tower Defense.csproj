@@ -91,6 +91,11 @@
     <Compile Include="Assets\Scripts\TileMap\TileManager.cs" />
     <Compile Include="Assets\Scripts\TileMap\TileScript.cs" />
     <Compile Include="Assets\Scripts\TowerButton.cs" />
+    <Compile Include="Assets\Scripts\Towers\EarthTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\FireTower.cs" />
+    <Compile Include="Assets\Scripts\Towers\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Towers\Towers.cs" />
+    <Compile Include="Assets\Scripts\Towers\WindTower.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Resources\Level.txt" />

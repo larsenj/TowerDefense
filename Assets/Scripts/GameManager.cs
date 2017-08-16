@@ -8,6 +8,9 @@ public class GameManager : Singleton<GameManager>
 {
     public TowerButton ClickedButton { get; set; }
 
+    //track tower that is currently selected
+    private Towers selectedTower;
+
     //track, modify, and display the currency
     public int Currency
     {
@@ -36,9 +39,8 @@ public class GameManager : Singleton<GameManager>
         }
         set
         {
-            Debug.Log(lives);
             this.lives = value;
-            //livesText.text = value.ToString();
+            livesText.text = "Lives: <color=lime>" + value.ToString() + "</color>";
 
             //if the player runs out of lives, call GameOver function - note
             //that functions can be called from within properties
@@ -93,7 +95,7 @@ public class GameManager : Singleton<GameManager>
     // Use this for initialization
     void Start () {
         gameOver = false;
-        Lives = 2;
+        Lives = 5;
         Currency = 500;	
 	}
 	
@@ -126,6 +128,24 @@ public class GameManager : Singleton<GameManager>
             Hover.Instance.Deactivate();
         }
     }
+
+    public void SelectTower(Towers tower)
+    {
+        //deselect old if selecting new
+        if (selectedTower != null)
+            selectedTower.Select();
+
+        selectedTower = tower;
+        selectedTower.Select(); //toggle the sprite renderer
+    }//end SelectTower
+    
+    public void DeselectTower()
+    {
+        if (selectedTower != null)
+            selectedTower.Select();
+
+        selectedTower = null;
+    }//end DeselectTower
 
     //deselect tower and turn off hover icon if user presses esc
     public void HandleEscape()
@@ -161,7 +181,7 @@ public class GameManager : Singleton<GameManager>
     {
         TileManager.Instance.GeneratePath();
 
-        for (int i = 0; i < wave; i++)
+        for (int i = 0; i < wave + (wave/2); i++)
         {
 
 
@@ -199,7 +219,7 @@ public class GameManager : Singleton<GameManager>
         activeMobs.Remove(mob);
 
         //re-enable the button if no more active mobs
-        if (!waveActive)
+        if (!waveActive && !gameOver)
             waveButton.SetActive(true);
     }//end RemoveMob
 

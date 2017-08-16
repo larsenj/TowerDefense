@@ -23,6 +23,9 @@ public class TileScript : MonoBehaviour {
     
     public bool Debugging { get; set; }
 
+    //track if a tower is placed on the tile
+    private Towers tileTower;
+
     //determines if tile is occupied - used for pathfinding and tower placement
     public bool IsEmpty { get; set; }
 
@@ -67,7 +70,13 @@ public class TileScript : MonoBehaviour {
         transform.SetParent(parent);    //to make the GameObject hierarchy cleaner
         TileManager.Instance.TileDict.Add(GridPos, this);
         IsEmpty = true;
-        IsWalkable = true;
+        //IsWalkable = true;
+        if (this.name == "green(Clone)")
+            IsWalkable = true;
+        else
+            IsWalkable = false;
+        //Debug.Log(this.name);
+        //else
     }
 
     public void OnMouseOver()
@@ -81,11 +90,23 @@ public class TileScript : MonoBehaviour {
                 ColorTile(emptyColor);
 
             //if not empty highlight in red, if empty can place tower
-            if (!IsEmpty && !Debugging)
+            if (!IsEmpty && !Debugging || IsWalkable)
                 ColorTile(fullColor);
             else if (Input.GetMouseButtonDown(0))
                 PlaceTower();
         }
+        //if tower not selected but player clicks a tower
+        //TODO: remove this functionality in the future
+        else if (!EventSystem.current.IsPointerOverGameObject() &&
+            GameManager.Instance.ClickedButton == null &&
+            Input.GetMouseButtonDown(0) )
+        {
+            if (tileTower != null)
+                GameManager.Instance.SelectTower(tileTower);
+            else
+                GameManager.Instance.DeselectTower();
+        }
+
     }
 
     private void OnMouseExit()
@@ -104,6 +125,9 @@ public class TileScript : MonoBehaviour {
 
         //set the tower as a child of the corresponding tile 
         tower.transform.SetParent(transform);
+
+        //establish reference to the tower on the tile
+        this.tileTower = tower.transform.GetChild(0).GetComponent<Towers>();
 
         //spend the resources and reset the button
         GameManager.Instance.BuyTower();

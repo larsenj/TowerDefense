@@ -6,13 +6,20 @@ using UnityEngine;
 //pointer when the user selects a tower
 public class Hover : Singleton<Hover>
 {
+    //circle that shows the tower's range
+    [SerializeField]
+    private SpriteRenderer rangeCheck;
 
     private SpriteRenderer spriteRenderer;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         this.spriteRenderer = GetComponent<SpriteRenderer>();
-	}
+
+        //establish a reference to the range check circle - child 0 is first child
+        this.rangeCheck = transform.GetChild(0).GetComponent<SpriteRenderer>();
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -34,6 +41,7 @@ public class Hover : Singleton<Hover>
     {
         this.spriteRenderer.sprite = sprite;
         spriteRenderer.enabled = true;
+        rangeCheck.enabled = true;
     }
 
     //
@@ -41,5 +49,6 @@ public class Hover : Singleton<Hover>
     {
         spriteRenderer.enabled = false;
         GameManager.Instance.ClickedButton = null;
+        rangeCheck.enabled = false;
     }
 }
