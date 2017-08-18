@@ -33,6 +33,18 @@ public abstract class Towers : MonoBehaviour
     private int damage;
     public int Damage { get { return damage; } }
 
+    //how long a status effect lasts
+    [SerializeField]
+    private float effectDuration;
+    public float EffectDuration
+    {
+        get { return effectDuration; }
+        set { this.effectDuration = value; }//in case upgrades are implemented
+    }
+    //[SerializeField]
+    //private float proc; //if there is a chance of effect not applying that tic
+
+
     //specific type of projectile that the tower does
     [SerializeField]
     private string projectileType;
@@ -62,7 +74,7 @@ public abstract class Towers : MonoBehaviour
     {
         Attack();
 
-        Debug.Log(targetMob);
+        //Debug.Log(targetMob);
 	}
 
     public void Select()
@@ -117,7 +129,8 @@ public abstract class Towers : MonoBehaviour
         }
 
         //if target dead, set target to null
-        if (targetMob != null && !targetMob.Alive)
+        if ( (targetMob != null && !targetMob.Alive) ||
+            (targetMob != null && !targetMob.IsActive) )
             targetMob = null;
 
 
@@ -143,6 +156,8 @@ public abstract class Towers : MonoBehaviour
         }
     }//end ontriggerexit
 
-
+    //get the type of damage a tower does - varies, so implemented by specific
+    //tower
+    public abstract StatusEffects GetEffect();
 }//end class Towers
 

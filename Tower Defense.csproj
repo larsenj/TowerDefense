@@ -87,7 +87,12 @@
     <Compile Include="Assets\Scripts\Pathfinding\Pathfinding.cs" />
     <Compile Include="Assets\Scripts\Point.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
+    <Compile Include="Assets\Scripts\SoundManager.cs" />
     <Compile Include="Assets\Scripts\SpawnPoint.cs" />
+    <Compile Include="Assets\Scripts\StatusEffects\EarthStatus.cs" />
+    <Compile Include="Assets\Scripts\StatusEffects\FireStatus.cs" />
+    <Compile Include="Assets\Scripts\StatusEffects\StatusEffects.cs" />
+    <Compile Include="Assets\Scripts\StatusEffects\WindStatus.cs" />
     <Compile Include="Assets\Scripts\TileMap\TileManager.cs" />
     <Compile Include="Assets\Scripts\TileMap\TileScript.cs" />
     <Compile Include="Assets\Scripts\TowerButton.cs" />

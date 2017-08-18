@@ -9,4 +9,10 @@ public class WindTower : Towers
         elementType = Element.WIND;
     }
 
+    public override StatusEffects GetEffect()
+    {
+        return new WindStatus(TargetMob);
+        //throw new NotImplementedException();
+    }
+
 }

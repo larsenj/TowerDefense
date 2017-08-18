@@ -28,6 +28,8 @@ public class GameManager : Singleton<GameManager>
     private int currency;
     [SerializeField]
     private Text currencyText;
+    [SerializeField]
+    private int startCurrency;
 
     //tracks lives. Not currently significant.
     private int lives;
@@ -53,12 +55,15 @@ public class GameManager : Singleton<GameManager>
     }
     [SerializeField]
     private Text livesText;
+    [SerializeField]
+    private int startLives;
 
     //property to access the pool of game objects
     public Objectpool Pool { get; set; }
 
     //tracks the waves
     private int wave = 0;
+    public int Wave { get { return wave; } }
     [SerializeField]
     private Text waveText;
     [SerializeField]
@@ -95,8 +100,8 @@ public class GameManager : Singleton<GameManager>
     // Use this for initialization
     void Start () {
         gameOver = false;
-        Lives = 5;
-        Currency = 500;	
+        Lives = startLives;
+        Currency = startCurrency;	
 	}
 	
 	// Update is called once per frame
@@ -180,8 +185,14 @@ public class GameManager : Singleton<GameManager>
     private IEnumerator SpawnWave()
     {
         TileManager.Instance.GeneratePath();
-
-        for (int i = 0; i < wave + (wave/2); i++)
+        float multiplier;
+        if (wave <= 3)
+            multiplier = 0.5f;
+        else if (wave <= 7)
+            multiplier = 1.5f;
+        else
+            multiplier = 2.5f;
+        for (int i = 0; i < wave + (wave * multiplier); i++)
         {
 
 
@@ -210,7 +221,12 @@ public class GameManager : Singleton<GameManager>
             //add the mob to the list
             activeMobs.Add(mob);
             //wait X.X seconds
-            yield return new WaitForSeconds(1.0f);
+            float waitTime;
+            if (wave <= 5)
+                waitTime = 1.0f;
+            else
+                waitTime = 0.5f;
+            yield return new WaitForSeconds(waitTime);
         }//end for i < wave
     }//end SpawnWave
 

@@ -55,10 +55,18 @@ public class Projectile : MonoBehaviour {
             //don't count mobs the projectile passes through to the tgt
             if (target.gameObject == collision.gameObject)
             {
-                target.TakeDamage(parent.Damage, elementType);               
+                target.TakeDamage(parent.Damage, elementType);
+                ApplyEffect();
             }
             GameManager.Instance.Pool.ReleaseObject(gameObject);
         }
     }//end ontriggerenter2d
+
+    //apply the effect to the mob
+    public void ApplyEffect()
+    {
+
+        target.AddStatus(parent.GetEffect());
+    }//end ApplyEffect
 
 }//end class Projectile
